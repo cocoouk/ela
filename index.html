@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome to ELA Replit App</h2>
+<p>Choose a service from the navigation menu above.</p>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5 mb-4">Welcome to ELA Replit App</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Chat with AI</h3>
+            <form id="chat-form">
+                <div class="mb-3">
+                    <label for="user-message" class="form-label">Your message:</label>
+                    <textarea class="form-control" id="user-message" name="message" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="send-button">Send</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>AI Response</h3>
+            <div id="chat-response" class="border p-3 bg-light" style="min-height: 150px; max-height: 300px; overflow-y: auto;">
+                <p class="text-muted">AI response will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3>Available Features</h3>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Google Drive Links</h5>
+                        <p class="card-text">Access your Google Drive files.</p>
+                        <a href="{{ url_for('gdrive_links') }}" class="btn btn-primary">View Links</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Notion Pages</h5>
+                        <p class="card-text">View your Notion pages.</p>
+                        <a href="{{ url_for('notion_pages') }}" class="btn btn-primary">View Pages</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more feature cards here as they become available -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatForm = document.getElementById('chat-form');
+    const userMessageInput = document.getElementById('user-message');
+    const responseDiv = document.getElementById('chat-response');
+    const sendButton = document.getElementById('send-button');
+
+    chatForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const userMessage = userMessageInput.value.trim();
+        
+        if (!userMessage) {
+            return; // Don't send empty messages
+        }
+
+        // Disable the send button and input while processing
+        sendButton.disabled = true;
+        userMessageInput.disabled = true;
+
+        // Append user message
+        appendMessage('You', userMessage);
+        appendMessage('AI', 'Thinking...', 'text-muted thinking-message');
+
+        fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'message': userMessage
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Remove the "thinking" message
+            const thinkingMessage = responseDiv.querySelector('.thinking-message');
+            if (thinkingMessage) {
+                responseDiv.removeChild(thinkingMessage);
+            }
+            // Append AI response
+            appendMessage('AI', data.response);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            appendMessage('System', 'An error occurred. Please try again.', 'text-danger');
+        })
+        .finally(() => {
+            // Re-enable the send button and input
+            sendButton.disabled = false;
+            userMessageInput.disabled = false;
+            // Clear the input field
+            userMessageInput.value = '';
+        });
+    });
+
+    function appendMessage(sender, message, className = '') {
+        const messageElement = document.createElement('p');
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        if (className) {
+            messageElement.className = className;
+        }
+        responseDiv.appendChild(messageElement);
+        responseDiv.scrollTop = responseDiv.scrollHeight;
+    }
+});
+</script>
+{% endblock %}

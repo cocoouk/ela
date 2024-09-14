@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Error</h2>
+<p>{{ computer says no }}</p>
+{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1 class="display-1 text-muted mb-4">404</h1>
+            <h2 class="mb-4">Page Not Found</h2>
+            <div class="mb-4">
+                <img src="{{ url_for('static', filename='404_image.svg') }}" alt="404 Illustration" class="img-fluid" style="max-width: 300px;">
+            </div>
+            <p class="lead mb-4">Oops! The page you're looking for doesn't exist.</p>
+            <p class="mb-4">It might have been moved or deleted, or perhaps you mistyped the URL.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-home me-2"></i>Return to Homepage
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+{% endblock %}
+

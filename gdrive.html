@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Google Drive Files</h2>
+<ul>
+    {% for file in files %}
+    <li><a href="{{ file.webViewLink }}" target="_blank">{{ file.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Google Drive Files</h1>
+    {% if files %}
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-all-list" data-bs-toggle="list" href="#list-all" role="tab" aria-controls="list-all">All Files</a>
+                    <a class="list-group-item list-group-item-action" id="list-folders-list" data-bs-toggle="list" href="#list-folders" role="tab" aria-controls="list-folders">Folders</a>
+                    <a class="list-group-item list-group-item-action" id="list-documents-list" data-bs-toggle="list" href="#list-documents" role="tab" aria-controls="list-documents">Documents</a>
+                    <a class="list-group-item list-group-item-action" id="list-media-list" data-bs-toggle="list" href="#list-media" role="tab" aria-controls="list-media">Media</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
+                        <ul class="list-group">
+                            {% for file in files %}
+                                {% include 'file_item.html' %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="list-folders" role="tabpanel" aria-labelledby="list-folders-list">
+                        <ul class="list-group">
+                            {% for file in files if file.mimeType == 'application/vnd.google-apps.folder' %}
+                                {% include 'file_item.html' %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="list-documents" role="tabpanel" aria-labelledby="list-documents-list">
+                        <ul class="list-group">
+                            {% for file in files if file.mimeType in ['application/vnd.google-apps.document', 'application/vnd.google-apps.spreadsheet', 'application/vnd.google-apps.presentation', 'application/pdf'] %}
+                                {% include 'file_item.html' %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="list-media" role="tabpanel" aria-labelledby="list-media-list">
+                        <ul class="list-group">
+                            {% for file in files if file.mimeType.startswith('image/') or file.mimeType.startswith('video/') or file.mimeType.startswith('audio/') %}
+                                {% include 'file_item.html' %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No Files Found</h4>
+            <p>There are currently no files available in your Google Drive.</p>
+            <hr>
+            <p class="mb-0">You can add files to your Google Drive and they will appear here.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var triggerTabList = [].slice.call(document.querySelectorAll('#list-tab a'))
+        triggerTabList.forEach(function (triggerEl) {
+            var tabTrigger = new bootstrap.Tab(triggerEl)
+            triggerEl.addEventListener('click', function (event) {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        })
+    });
+</script>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+    .list-group-item a {
+        color: #212529;
+    }
+    .list-group-item a:hover {
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
+
