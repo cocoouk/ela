@@ -1,129 +1,82 @@
 {% extends "base.html" %}
-{% block content %}
-<h2>Welcome to ELA Replit App</h2>
-<p>Choose a service from the navigation menu above.</p>
-{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mt-5 mb-4">Welcome to ELA Replit App</h1>
+<!-- Main Container -->
+<div class="container text-center" style="background-color: #FFA500; padding: 50px; border-radius: 10px; color: white;">
+    <!-- Welcome Message -->
+    <h1 class="display-4">Welcome to ELA Replit App</h1>
+    <p class="lead">Your all-in-one AI-powered service platform</p>
 
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Chat with AI</h3>
-            <form id="chat-form">
-                <div class="mb-3">
-                    <label for="user-message" class="form-label">Your message:</label>
-                    <textarea class="form-control" id="user-message" name="message" rows="3" required></textarea>
+    <!-- Navigation Options -->
+    <div class="row mt-5">
+        <!-- Chat with AI -->
+        <div class="col-md-4">
+            <div class="card text-dark" style="background-color: #FFF3E0;">
+                <div class="card-body">
+                    <h3 class="card-title">Chat with AI</h3>
+                    <p class="card-text">Start a conversation with our intelligent AI bot.</p>
+                    <a href="/chat" class="btn btn-warning">Go to Chat</a>
                 </div>
-                <button type="submit" class="btn btn-primary" id="send-button">Send</button>
-            </form>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h3>AI Response</h3>
-            <div id="chat-response" class="border p-3 bg-light" style="min-height: 150px; max-height: 300px; overflow-y: auto;">
-                <p class="text-muted">AI response will appear here...</p>
+
+        <!-- Google Drive -->
+        <div class="col-md-4">
+            <div class="card text-dark" style="background-color: #FFF3E0;">
+                <div class="card-body">
+                    <h3 class="card-title">Google Drive</h3>
+                    <p class="card-text">Access and manage your Google Drive files.</p>
+                    <a href="/gdrive" class="btn btn-warning">Access Google Drive</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Sheets -->
+        <div class="col-md-4">
+            <div class="card text-dark" style="background-color: #FFF3E0;">
+                <div class="card-body">
+                    <h3 class="card-title">Google Sheets</h3>
+                    <p class="card-text">View and edit your Google Sheets documents.</p>
+                    <a href="/gsheets" class="btn btn-warning">Open Google Sheets</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="mt-5">
-        <h3>Available Features</h3>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Google Drive Links</h5>
-                        <p class="card-text">Access your Google Drive files.</p>
-                        <a href="{{ url_for('gdrive_links') }}" class="btn btn-primary">View Links</a>
-                    </div>
+    <!-- More Links -->
+    <div class="row mt-5">
+        <!-- MongoDB -->
+        <div class="col-md-4">
+            <div class="card text-dark" style="background-color: #FFF3E0;">
+                <div class="card-body">
+                    <h3 class="card-title">MongoDB</h3>
+                    <p class="card-text">Explore and manage your MongoDB database.</p>
+                    <a href="/mongodb" class="btn btn-warning">Access MongoDB</a>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Notion Pages</h5>
-                        <p class="card-text">View your Notion pages.</p>
-                        <a href="{{ url_for('notion_pages') }}" class="btn btn-primary">View Pages</a>
-                    </div>
+        </div>
+
+        <!-- Google Form Responses -->
+        <div class="col-md-4">
+            <div class="card text-dark" style="background-color: #FFF3E0;">
+                <div class="card-body">
+                    <h3 class="card-title">Google Form Responses</h3>
+                    <p class="card-text">View responses from your Google Forms.</p>
+                    <a href="/gform_responses" class="btn btn-warning">Check Responses</a>
                 </div>
             </div>
-            <!-- Add more feature cards here as they become available -->
+        </div>
+
+        <!-- Notion Pages -->
+        <div class="col-md-4">
+            <div class="card text-dark" style="background-color: #FFF3E0;">
+                <div class="card-body">
+                    <h3 class="card-title">Notion Pages</h3>
+                    <p class="card-text">Organize and manage your Notion workspace.</p>
+                    <a href="/notion_pages" class="btn btn-warning">Go to Notion</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const chatForm = document.getElementById('chat-form');
-    const userMessageInput = document.getElementById('user-message');
-    const responseDiv = document.getElementById('chat-response');
-    const sendButton = document.getElementById('send-button');
-
-    chatForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const userMessage = userMessageInput.value.trim();
-        
-        if (!userMessage) {
-            return; // Don't send empty messages
-        }
-
-        // Disable the send button and input while processing
-        sendButton.disabled = true;
-        userMessageInput.disabled = true;
-
-        // Append user message
-        appendMessage('You', userMessage);
-        appendMessage('AI', 'Thinking...', 'text-muted thinking-message');
-
-        fetch('/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                'message': userMessage
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Remove the "thinking" message
-            const thinkingMessage = responseDiv.querySelector('.thinking-message');
-            if (thinkingMessage) {
-                responseDiv.removeChild(thinkingMessage);
-            }
-            // Append AI response
-            appendMessage('AI', data.response);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            appendMessage('System', 'An error occurred. Please try again.', 'text-danger');
-        })
-        .finally(() => {
-            // Re-enable the send button and input
-            sendButton.disabled = false;
-            userMessageInput.disabled = false;
-            // Clear the input field
-            userMessageInput.value = '';
-        });
-    });
-
-    function appendMessage(sender, message, className = '') {
-        const messageElement = document.createElement('p');
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-        if (className) {
-            messageElement.className = className;
-        }
-        responseDiv.appendChild(messageElement);
-        responseDiv.scrollTop = responseDiv.scrollHeight;
-    }
-});
-</script>
 {% endblock %}
