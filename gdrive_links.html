@@ -4,6 +4,28 @@
 
 {% block content %}
 <div class="container mt-4">
+
+
+
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Google Drive Links</h2>
+<ul>
+    {% for link in gdrive_links %}
+    <li><a href="{{ link.url }}" class="gdrive-link">{{ link.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+
+
     <h1 class="mb-4">Google Drive Links</h1>
     {% if files %}
         <div class="row">
