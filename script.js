@@ -1,3 +1,4 @@
+
 function sendMessage() {
     var userInput = document.getElementById('user-input');
     var message = userInput.value;
@@ -17,3 +18,16 @@ function sendMessage() {
         chatMessages.innerHTML += '<p><strong>AI:</strong> ' + data.response + '</p>';
     });
 }
+
+// Capture GDrive Links Click Event
+document.addEventListener('DOMContentLoaded', () => {
+    const gdriveLinks = document.querySelectorAll('.gdrive-link');
+    gdriveLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const linkUrl = this.href;
+            var chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML += '<p><strong>Link:</strong> ' + linkUrl + '</p>';
+        });
+    });
+});
