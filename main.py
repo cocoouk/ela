@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["200 per day", "50 per hour"],
+    default_limits=["500 per day", "100 per hour"],  # Increased limit for better testing
     storage_uri="memory://"
 )
 
@@ -34,6 +34,8 @@ if MONGODB_URI:
         logger.info("Connected to MongoDB")
     except Exception as e:
         logger.error(f"Error connecting to MongoDB: {str(e)}")
+else:
+    logger.error("MONGODB_URI not set. MongoDB won't work.")
 
 # Notion connection
 notion = None
@@ -44,6 +46,8 @@ if NOTION_TOKEN:
         logger.info("Connected to Notion API")
     except Exception as e:
         logger.error(f"Error connecting to Notion API: {str(e)}")
+else:
+    logger.error("NOTION_TOKEN not set. Notion API won't work.")
 
 # Google services connection
 drive_service = None
@@ -63,6 +67,8 @@ if GOOGLE_CREDENTIALS:
         logger.info("Connected to Google services")
     except Exception as e:
         logger.error(f"Error connecting to Google services: {str(e)}")
+else:
+    logger.error("GOOGLE_CREDENTIALS not set. Google services won't work.")
 
 @app.route('/')
 def index():
@@ -89,11 +95,11 @@ def gdrive_links():
     return render_template('gdrive_links.html', gdrive_links=links)
 
 @app.route('/chat', methods=['POST'])
-@limiter.limit("10 per minute")
+@limiter.limit("30 per minute")  # Updated rate limit for better handling
 def chat():
     user_message = request.form.get('message', '')
     response = f"You said: {user_message}"
     return jsonify({"response": response})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    app.run(host='0.0.0.0', port=8080, debug=True)
