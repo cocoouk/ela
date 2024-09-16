@@ -1,17 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Google Drive Files</h2>
-<ul>
-    {% for file in files %}
-    <li><a href="{{ file.webViewLink }}" target="_blank">{{ file.name }}</a></li>
-    {% endfor %}
-</ul>
-{% endblock %}
-
-{% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">Google Drive Files</h1>
+    
     {% if files %}
         <div class="row">
             <div class="col-md-3 mb-3">
@@ -22,8 +14,10 @@
                     <a class="list-group-item list-group-item-action" id="list-media-list" data-bs-toggle="list" href="#list-media" role="tab" aria-controls="list-media">Media</a>
                 </div>
             </div>
+
             <div class="col-md-9">
                 <div class="tab-content" id="nav-tabContent">
+                    <!-- All Files Tab -->
                     <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                         <ul class="list-group">
                             {% for file in files %}
@@ -31,6 +25,8 @@
                             {% endfor %}
                         </ul>
                     </div>
+
+                    <!-- Folders Only Tab -->
                     <div class="tab-pane fade" id="list-folders" role="tabpanel" aria-labelledby="list-folders-list">
                         <ul class="list-group">
                             {% for file in files if file.mimeType == 'application/vnd.google-apps.folder' %}
@@ -38,6 +34,8 @@
                             {% endfor %}
                         </ul>
                     </div>
+
+                    <!-- Documents Only Tab -->
                     <div class="tab-pane fade" id="list-documents" role="tabpanel" aria-labelledby="list-documents-list">
                         <ul class="list-group">
                             {% for file in files if file.mimeType in ['application/vnd.google-apps.document', 'application/vnd.google-apps.spreadsheet', 'application/vnd.google-apps.presentation', 'application/pdf'] %}
@@ -45,6 +43,8 @@
                             {% endfor %}
                         </ul>
                     </div>
+
+                    <!-- Media Files Tab -->
                     <div class="tab-pane fade" id="list-media" role="tabpanel" aria-labelledby="list-media-list">
                         <ul class="list-group">
                             {% for file in files if file.mimeType.startswith('image/') or file.mimeType.startswith('video/') or file.mimeType.startswith('audio/') %}
@@ -74,10 +74,10 @@
         triggerTabList.forEach(function (triggerEl) {
             var tabTrigger = new bootstrap.Tab(triggerEl)
             triggerEl.addEventListener('click', function (event) {
-                event.preventDefault()
-                tabTrigger.show()
-            })
-        })
+                event.preventDefault();
+                tabTrigger.show();
+            });
+        });
     });
 </script>
 {% endblock %}
@@ -95,4 +95,3 @@
     }
 </style>
 {% endblock %}
-
