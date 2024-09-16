@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+
+{% block title %}Google Drive Links - ELA Replit App{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+
+
+
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Google Drive Links</h2>
+<ul>
+    {% for link in gdrive_links %}
+    <li><a href="{{ link.url }}" class="gdrive-link">{{ link.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+
+
+
+    <h1 class="mb-4">Google Drive Links</h1>
+    {% if files %}
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-all-list" data-bs-toggle="list" href="#list-all" role="tab" aria-controls="list-all">All Files</a>
+                    <a class="list-group-item list-group-item-action" id="list-folders-list" data-bs-toggle="list" href="#list-folders" role="tab" aria-controls="list-folders">Folders</a>
+                    <a class="list-group-item list-group-item-action" id="list-documents-list" data-bs-toggle="list" href="#list-documents" role="tab" aria-controls="list-documents">Documents</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
+                        <ul class="list-group">
+                            {% for file in files %}
+                                <li class="list-group-item">
+                                    <a href="{{ file.webViewLink }}" target="_blank" class="d-flex align-items-center text-decoration-none">
+                                        <span class="me-2">
+                                            {% if file.mimeType == 'application/vnd.google-apps.folder' %}
+                                                <i class="fas fa-folder text-warning"></i>
+                                            {% else %}
+                                                <i class="fas fa-file text-primary"></i>
+                                            {% endif %}
+                                        </span>
+                                        {{ file.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="list-folders" role="tabpanel" aria-labelledby="list-folders-list">
+                        <ul class="list-group">
+                            {% for file in files if file.mimeType == 'application/vnd.google-apps.folder' %}
+                                <li class="list-group-item">
+                                    <a href="{{ file.webViewLink }}" target="_blank" class="d-flex align-items-center text-decoration-none">
+                                        <span class="me-2">
+                                            <i class="fas fa-folder text-warning"></i>
+                                        </span>
+                                        {{ file.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="list-documents" role="tabpanel" aria-labelledby="list-documents-list">
+                        <ul class="list-group">
+                            {% for file in files if file.mimeType != 'application/vnd.google-apps.folder' %}
+                                <li class="list-group-item">
+                                    <a href="{{ file.webViewLink }}" target="_blank" class="d-flex align-items-center text-decoration-none">
+                                        <span class="me-2">
+                                            <i class="fas fa-file text-primary"></i>
+                                        </span>
+                                        {{ file.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            No files available. Please check your Google Drive configuration.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var triggerTabList = [].slice.call(document.querySelectorAll('#list-tab a'))
+        triggerTabList.forEach(function (triggerEl) {
+            var tabTrigger = new bootstrap.Tab(triggerEl)
+            triggerEl.addEventListener('click', function (event) {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        })
+    });
+</script>
+{% endblock %}
+
+
+
+
+					
+				<a href="https://drive.google.com/file/d/1--s_S9p9YzwDobhurw45Ue8e8HnCxcgT/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">STRATEGY_AND_LINKS</a>
+				<a href="https://drive.google.com/drive/folders/1HCF-dgUr77Oix8GXd4qzXIJAEsB4xE2i?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ALP_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1yHQ5eKB09orMCMOvl416z6lQpoFteIYK/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ANTICORRUPTION_JSON</a>
+				<a href="https://drive.google.com/file/d/1sBfrXGuPDEYqmKC1WT6v31UVxNEp-UTx/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TI_JSON</a>
+				<a href="https://drive.google.com/drive/folders/1_BN6KvDzL6XJ0Vt61-Gi4LUhLtW-AYaO?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1jh5rggGedDqsqNzKvj6qhXujh8DcGX1-/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_V_CMA_CASES_1</a>
+				<a href="https://drive.google.com/file/d/1M4BzI4RKUBE4nAeo6n67eM04iIQW3QPh/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_V_CMA_CASES_2</a>
+				<a href="https://drive.google.com/file/d/1CO_Hbsfl9n2HdsGmED5mPONRFVubg_mY/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_V_CMA_CASES_3</a>
+				<a href="https://drive.google.com/file/d/1Dlj6BBrkTVemI3s08UTjhL_yeeeYcc6h/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_RECENT_CASES</a>
+				<a href="https://drive.google.com/file/d/1NkJFIJAWynt6F3GYMBlAfClRp6gi-Dih/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_RULES_JR</a>
+				<a href="https://drive.google.com/file/d/1N1-ptxXuqXcJ5zS6_5H8ew91jHi3euYi/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">L+_CAT_ONGOING_CASES</a>
+				<a href="https://drive.google.com/drive/folders/1XdHbFcv6vN2W01i36jdgRK2e0wyzdO4m?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMAS_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1ym9FLQrZt92IzpYWxT_gkQx_Z9qvqmPu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_MARKET_STUDIES</a>
+				<a href="https://drive.google.com/file/d/1692druOOi2a05an7ZMQxzBzoRyUbYIe8/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_CO_REMEDIES</a>
+				<a href="https://drive.google.com/file/d/1wtYP1FvyIdQhJsu5DLoulFkXYh4oXoVm/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_SAU_SUBSIDY</a>
+				<a href="https://drive.google.com/file/d/1wztSVQj_h8C_708NBCQq-bGYJQhxEPgq/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_REMEDIES_STUDIES_JSON</a>
+				<a href="https://drive.google.com/file/d/14mRbzu0XGzK1IMUAg4aXF5-A-H9kwtGk/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CNMC_ZIP</a>
+				<a href="https://drive.google.com/file/d/1Mfdj3o7TjWQvrOTXW2J9YY-YtJBgrEXn/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">EC_CMA_PDF</a>
+				<a href="https://drive.google.com/file/d/1zQFXEWIzIsmx7-V9Q6kIfbEZoHK-5Yxk/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">KNEEPKENS_ZIP</a>
+				<a href="https://drive.google.com/file/d/17uZbc8Hs_chl7X75-9A3KVgKTmseFxiu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MJ_MERGERS_ZIP</a>
+				<a href="https://drive.google.com/file/d/1IR7Dw4yfyFMo7jIVFhgS2TiOP1DbYLkp/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">RLCM_ZIP</a>
+				<a href="https://drive.google.com/file/d/1egmqkrgSfFakVwTTU4wEbfZSu-VQbXRD/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">EC_ZIP</a>
+				<a href="https://drive.google.com/drive/folders/1n3FEYmkSL2ciWwhH2XGRfE1QOt1FeOon?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">COMPETITION_ANALYSIS_ADP</a>
+				<a href="https://drive.google.com/drive/folders/15e1JgZoCLKgBI59ZqfyJELascB97t48o?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">COMPETITION_ANALYSIS_JSONS</a>
+				<a href="https://docs.google.com/spreadsheets/d/11eRpZxxeYhGBCylEZrwCuqbkAY0YR6sK/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">XLS_COMPARABLE_CO_ANALYSIS</a>
+				<a href="https://drive.google.com/file/d/10nVl9lkMMgJP_-9shFXmK4rDMrAmavgH/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ALL_MARKET_DEFINITIONS</a>
+				<a href="https://drive.google.com/file/d/1-QzXkyGu7Qc2u9hC-wDGqoVlkDzuWvD2/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">COCONS</a>
+				<a href="https://drive.google.com/file/d/1OPBq7UEscgBAF1UtQXfo8o_bVjudDaQu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MOTTA</a>
+				<a href="https://drive.google.com/file/d/1Cv4LaSJJlyGAasEymbE0k_kv_80h3RqD/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TOP_WORLD_COS_BY_SECTOR</a>
+				<a href="https://docs.google.com/spreadsheets/d/1ZCIDsH6o1k-QjievrVmqRAG85nyoL7SX/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">UK_SECTOR_ANALYSIS</a>
+				<a href="https://drive.google.com/drive/folders/1IH_f1z3Aqbf8Gx1RE00RivyjG3pUCgYG?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">FOCS_UK_TRACKER</a>
+				<a href="https://drive.google.com/file/d/1drsmz1WT6M3u-0gP38OFPyBVwd7hzBiQ/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">FOC_TYPES</a>
+				<a href="https://drive.google.com/file/d/1981UVVZJ11W1J2u6I2_m8X7JoYkRCLoa/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">L+_UK_PRIVATE_ACTIONS</a>
+				<a href="https://drive.google.com/drive/folders/1oGbEgq6QEzIN2HO0bsm6gfIPt5vddZ9K?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ILP_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1_N_L3-LtXxWz6sR5zKPLGZ5ex1aWhSHo/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LIMITATIONS_TO_FREEDOM</a>
+				<a href="https://drive.google.com/file/d/1EBGWCyEWjS6rs-H070WKngGNiTprwa0w/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">UK_UNLAWFUL_INVESTMENTS</a>
+				<a href="https://drive.google.com/drive/folders/1-Mg47gm18biGVJ7uI6Obhd-LM48x6unx?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TOP_FOLDER</a>
+				<a href="https://docs.google.com/spreadsheets/d/15LEqn4cjU1VDNbH886JplOH-M8iWXu1E/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">IPO_VALUATION_MODEL</a>
+				<a href="https://docs.google.com/spreadsheets/d/1m8dQIHExXJwu9HXvFc4hqSxJyoa0fpNS/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TOP_DISCLOSURE_TABLE</a>
+				<a href="https://drive.google.com/drive/folders/17vUnX0UGeCmSZ6UOiv8O1s3TZuyrDHVk?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">JR_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1huO_CnRj2qFoFLeEVw7AVDTojYzwII1j/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ONGOING_CMA_UNDERTAKINGS</a>
+				<a href="https://drive.google.com/file/d/1-ff1LetEJWnfELGuCVpM8qWsM7HAEfBD/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">HITACHI_UNDERTAKINGS</a>
+				<a href="https://drive.google.com/file/d/1jBnlIupOzpCoQX4LTchV3hMQERLY6yQF/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">JR_WPI</a>
+				<a href="https://drive.google.com/file/d/13CEy-1Oe0vLhdFCdpdnoPun1j2O8Z35i/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_JR_LOCUS</a>
+				<a href="https://drive.google.com/file/d/1X_PaArg1RXlaobRxwiTIjceg2k3o9t38/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">JR_PDF</a>
+				<a href="https://drive.google.com/file/d/1rC8MeXt_VpCJNi9pCoTW9wcryDgA_AhO/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MOD_BAE_ZIP</a>
+				<a href="https://drive.google.com/file/d/12Hziuidxii5x38IEUM7fSecBd97sYgHF/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">L+_WPI_ONGOING_REGULATORY_CASES</a>
+				<a href="https://drive.google.com/drive/folders/14vTB65wYUqoggmGWvZy3N-de9URtZs_m?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LOBBYING_FOLDER</a>
+				<a href="https://drive.google.com/drive/folders/1gxi641mqI91oaJ0vr8B3YUOusiO7jlCx?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LOBBYING_JSON_FILES</a>
+				<a href="https://drive.google.com/file/d/1C-VH-cFtrAgj8J00i1XgsX8EMGc5CWAx/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">AGGPS</a>
+				<a href="https://drive.google.com/file/d/1a3zUpertkdhEGMoC6gH2e3HT7kV2Qllc/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LOBBY_BREACHES</a>
+				<a href="https://drive.google.com/drive/folders/1pN8tgVmDMwsCtZwp_gzSDwkldqUH4Epa?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES</a>
+				<a href="https://drive.google.com/drive/folders/1k0dtqvNbD8nLyqKq6HGeifUhq3aAZK78?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES_JSON</a>
+				<a href="https://drive.google.com/file/d/1lz917Zj3aaj5HNmG_ydJ8S5ycTO7PyDO/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">INHOUSE_SOLICITOR_SRA_GUIDANCE</a>
+				<a href="https://drive.google.com/file/d/1_WM1oslXJ_G6TXXT-_fw6MtPxnnfgWMP/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES_I</a>
+				<a href="https://drive.google.com/file/d/1tX5H9h6p2pe_b-hSuENZSGJ52NOkh6uX/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES_II</a>
+				<a href="https://drive.google.com/file/d/1XqmfEeUDHgBXInws8Ex_Cf8A0la67_Xg/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">NDA_PDF</a>
+				<a href="https://drive.google.com/drive/folders/1CRwAVVQWimAXqYyUWu_yhVc7fG5yWc9n?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OC_OS_RNS_TOOLS</a>
+				<a href="https://drive.google.com/drive/folders/1vPP4bFN_aU3TKjxRvGYsxilv8AGAG3iC?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OC_OS_RNS_TOOLS_JSON</a>
+				<a href="https://drive.google.com/file/d/1v9K65ItllKL2oBygaQPKZGs9NENNHnRJ/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">HOW_TO_USE_OC</a>
+				<a href="https://drive.google.com/file/d/1o7Nc60qkRxrQHjYDir-gta4OVCxwgIN9/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">RNS_SUBMIT_REACH</a>
+				<a href="https://drive.google.com/drive/folders/1iaGh1lTWp7y9tuF35ZD8NSFs3vSyhiN7?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_FOLDER</a>
+				<a href="https://drive.google.com/file/d/167TuXIPhYOUYYB3DO2Jp8EpiGiXcmURo/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_ZIP_A</a>
+				<a href="https://drive.google.com/file/d/1IQ9MmcJR_x3QUZuDU0xefi0Nf_XApbaU/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_ZIP_B</a>
+				<a href="https://drive.google.com/file/d/1_Dxjspme05_bTpCMLLoPqPp0ikAtotC-/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_ZIP_C</a>
+				<a href="https://drive.google.com/drive/folders/1isqEFs7z9NjAN8ROY740NcDTc2F8TcYY?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1fs05mFAixDw3vsuPcSv6Bgn4u7sZ4G60/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_WEB_ZIP</a>
+				<a href="https://drive.google.com/file/d/1gbg2RkQxivI7bpKZ3zVI1C4dgqeiIaMf/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_LOA_NEXTGEN_TL_ZIP</a>
+				<a href="https://drive.google.com/drive/folders/1xWU-gPc37ma7YWlma_An-_1ZG39BMFi_?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">USP_PPPS_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1mUBYCRxoXyWLcoJQZUCWkQURoFbpxgrO/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ASSET_IDENTIF_AND_PPP_TRACKER</a>
+				<a href="https://drive.google.com/file/d/1FpHKCcQ5YmlQ1HlczjD5vdSKHwhBTATJ/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CCS_USPS</a>
+				<a href="https://drive.google.com/file/d/1-T1jbf-f6oahGvGg-IP9bwNH3yIeK0UW/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CONSTRUCTION_LAW_AND_CONTRACTS</a>
+				<a href="https://drive.google.com/file/d/14pz1Ic-gLaQjS9NJak-hR6h_lZOktfXK/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">EUROSTAT_ONS</a>
+				<a href="https://drive.google.com/file/d/14-BZBV4z5v5TSeV0w30TZOJ-OUDl5p4b/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MODEL_CONTRACTS_FROM_PUS_TO_PRIS</a>
+				<a href="https://drive.google.com/file/d/1bWJw2957TO97PFPp-j_VILRwTowSJbBv/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">PPP_USP</a>
+				<a href="https://drive.google.com/drive/folders/1cbh8q1WnSo8qGOCTu4GxTV2bSXCwK3bS?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MATOIPO_VALUATION_FOLDER</a>
+				<a href="https://drive.google.com/file/d/1N1UcOeDc5PvDLNan2z4DAzTwRF-F4u5A/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">BIWS_BANKS</a>
+				<a href="https://drive.google.com/file/d/181veH9J59eBcd71qFcPxzEIFG9pZnUeI/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">BIWS_MA_EXCELS</a>
+				<a href="https://drive.google.com/file/d/1tIfqtMIDf5SBtJj9ongEBjD8prUBpPoo/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">NO_PAT_VALUATION</a>
+				<a href="https://drive.google.com/file/d/1AWZAIalMrMH0eaIJMSckBEADmvbqVa6P/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">PDF_VALUATION</a>
+				<a href="https://drive.google.com/file/d/1RVPjXEa6vOcUIuLShvS8_ePBG6_7FYBu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">3P_INTERVENTIONS</a>
+				<a href="https://drive.google.com/file/d/1-p8TezfZtJv9GjwcCa17J5CuBRuxnjaW/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ALP_ZIP</a>
+				<a href="https://drive.google.com/file/d/1O_qjHXCLrAqORgoHYbaMlaGhJhTbwUFH/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CLP_WEB_ZIP</a>
+				<a href="https://drive.google.com/file/d/1zu4rV9xVAtooCx1ermLNbEdjYFyrz3Bk/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="{% extends "base.html" %}
+
+					{% block content %}
+					<div class="container">
+							<h1 class="my-4">Google Drive Links</h1>
+							<div class="list-group gdrive-links">
+									<a href="https://drive.google.com/file/d/1--s_S9p9YzwDobhurw45Ue8e8HnCxcgT/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">STRATEGY_AND_LINKS</a>
+									<a href="https://drive.google.com/drive/folders/1HCF-dgUr77Oix8GXd4qzXIJAEsB4xE2i?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ALP_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1yHQ5eKB09orMCMOvl416z6lQpoFteIYK/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ANTICORRUPTION_JSON</a>
+									<a href="https://drive.google.com/file/d/1sBfrXGuPDEYqmKC1WT6v31UVxNEp-UTx/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TI_JSON</a>
+									<a href="https://drive.google.com/drive/folders/1_BN6KvDzL6XJ0Vt61-Gi4LUhLtW-AYaO?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1jh5rggGedDqsqNzKvj6qhXujh8DcGX1-/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_V_CMA_CASES_1</a>
+									<a href="https://drive.google.com/file/d/1M4BzI4RKUBE4nAeo6n67eM04iIQW3QPh/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_V_CMA_CASES_2</a>
+									<a href="https://drive.google.com/file/d/1CO_Hbsfl9n2HdsGmED5mPONRFVubg_mY/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_V_CMA_CASES_3</a>
+									<a href="https://drive.google.com/file/d/1Dlj6BBrkTVemI3s08UTjhL_yeeeYcc6h/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_RECENT_CASES</a>
+									<a href="https://drive.google.com/file/d/1NkJFIJAWynt6F3GYMBlAfClRp6gi-Dih/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CAT_RULES_JR</a>
+									<a href="https://drive.google.com/file/d/1N1-ptxXuqXcJ5zS6_5H8ew91jHi3euYi/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">L+_CAT_ONGOING_CASES</a>
+									<a href="https://drive.google.com/drive/folders/1XdHbFcv6vN2W01i36jdgRK2e0wyzdO4m?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMAS_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1ym9FLQrZt92IzpYWxT_gkQx_Z9qvqmPu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_MARKET_STUDIES</a>
+									<a href="https://drive.google.com/file/d/1692druOOi2a05an7ZMQxzBzoRyUbYIe8/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_CO_REMEDIES</a>
+									<a href="https://drive.google.com/file/d/1wtYP1FvyIdQhJsu5DLoulFkXYh4oXoVm/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_SAU_SUBSIDY</a>
+									<a href="https://drive.google.com/file/d/1wztSVQj_h8C_708NBCQq-bGYJQhxEPgq/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CMA_REMEDIES_STUDIES_JSON</a>
+									<a href="https://drive.google.com/file/d/14mRbzu0XGzK1IMUAg4aXF5-A-H9kwtGk/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CNMC_ZIP</a>
+									<a href="https://drive.google.com/file/d/1Mfdj3o7TjWQvrOTXW2J9YY-YtJBgrEXn/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">EC_CMA_PDF</a>
+									<a href="https://drive.google.com/file/d/1zQFXEWIzIsmx7-V9Q6kIfbEZoHK-5Yxk/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">KNEEPKENS_ZIP</a>
+									<a href="https://drive.google.com/file/d/17uZbc8Hs_chl7X75-9A3KVgKTmseFxiu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MJ_MERGERS_ZIP</a>
+									<a href="https://drive.google.com/file/d/1IR7Dw4yfyFMo7jIVFhgS2TiOP1DbYLkp/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">RLCM_ZIP</a>
+									<a href="https://drive.google.com/file/d/1egmqkrgSfFakVwTTU4wEbfZSu-VQbXRD/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">EC_ZIP</a>
+									<a href="https://drive.google.com/drive/folders/1n3FEYmkSL2ciWwhH2XGRfE1QOt1FeOon?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">COMPETITION_ANALYSIS_ADP</a>
+									<a href="https://drive.google.com/drive/folders/15e1JgZoCLKgBI59ZqfyJELascB97t48o?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">COMPETITION_ANALYSIS_JSONS</a>
+									<a href="https://docs.google.com/spreadsheets/d/11eRpZxxeYhGBCylEZrwCuqbkAY0YR6sK/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">XLS_COMPARABLE_CO_ANALYSIS</a>
+									<a href="https://drive.google.com/file/d/10nVl9lkMMgJP_-9shFXmK4rDMrAmavgH/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ALL_MARKET_DEFINITIONS</a>
+									<a href="https://drive.google.com/file/d/1-QzXkyGu7Qc2u9hC-wDGqoVlkDzuWvD2/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">COCONS</a>
+									<a href="https://drive.google.com/file/d/1OPBq7UEscgBAF1UtQXfo8o_bVjudDaQu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MOTTA</a>
+									<a href="https://drive.google.com/file/d/1Cv4LaSJJlyGAasEymbE0k_kv_80h3RqD/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TOP_WORLD_COS_BY_SECTOR</a>
+									<a href="https://docs.google.com/spreadsheets/d/1ZCIDsH6o1k-QjievrVmqRAG85nyoL7SX/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">UK_SECTOR_ANALYSIS</a>
+									<a href="https://drive.google.com/drive/folders/1IH_f1z3Aqbf8Gx1RE00RivyjG3pUCgYG?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">FOCS_UK_TRACKER</a>
+									<a href="https://drive.google.com/file/d/1drsmz1WT6M3u-0gP38OFPyBVwd7hzBiQ/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">FOC_TYPES</a>
+									<a href="https://drive.google.com/file/d/1981UVVZJ11W1J2u6I2_m8X7JoYkRCLoa/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">L+_UK_PRIVATE_ACTIONS</a>
+									<a href="https://drive.google.com/drive/folders/1oGbEgq6QEzIN2HO0bsm6gfIPt5vddZ9K?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ILP_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1_N_L3-LtXxWz6sR5zKPLGZ5ex1aWhSHo/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LIMITATIONS_TO_FREEDOM</a>
+									<a href="https://drive.google.com/file/d/1EBGWCyEWjS6rs-H070WKngGNiTprwa0w/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">UK_UNLAWFUL_INVESTMENTS</a>
+									<a href="https://drive.google.com/drive/folders/1-Mg47gm18biGVJ7uI6Obhd-LM48x6unx?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TOP_FOLDER</a>
+									<a href="https://docs.google.com/spreadsheets/d/15LEqn4cjU1VDNbH886JplOH-M8iWXu1E/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">IPO_VALUATION_MODEL</a>
+									<a href="https://docs.google.com/spreadsheets/d/1m8dQIHExXJwu9HXvFc4hqSxJyoa0fpNS/edit?usp=drive_link&ouid=114870437676035012747&rtpof=true&sd=true" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">TOP_DISCLOSURE_TABLE</a>
+									<a href="https://drive.google.com/drive/folders/17vUnX0UGeCmSZ6UOiv8O1s3TZuyrDHVk?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">JR_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1huO_CnRj2qFoFLeEVw7AVDTojYzwII1j/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ONGOING_CMA_UNDERTAKINGS</a>
+									<a href="https://drive.google.com/file/d/1-ff1LetEJWnfELGuCVpM8qWsM7HAEfBD/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">HITACHI_UNDERTAKINGS</a>
+									<a href="https://drive.google.com/file/d/1jBnlIupOzpCoQX4LTchV3hMQERLY6yQF/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">JR_WPI</a>
+									<a href="https://drive.google.com/file/d/13CEy-1Oe0vLhdFCdpdnoPun1j2O8Z35i/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_JR_LOCUS</a>
+									<a href="https://drive.google.com/file/d/1X_PaArg1RXlaobRxwiTIjceg2k3o9t38/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">JR_PDF</a>
+									<a href="https://drive.google.com/file/d/1rC8MeXt_VpCJNi9pCoTW9wcryDgA_AhO/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MOD_BAE_ZIP</a>
+									<a href="https://drive.google.com/file/d/12Hziuidxii5x38IEUM7fSecBd97sYgHF/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">L+_WPI_ONGOING_REGULATORY_CASES</a>
+									<a href="https://drive.google.com/drive/folders/14vTB65wYUqoggmGWvZy3N-de9URtZs_m?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LOBBYING_FOLDER</a>
+									<a href="https://drive.google.com/drive/folders/1gxi641mqI91oaJ0vr8B3YUOusiO7jlCx?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LOBBYING_JSON_FILES</a>
+									<a href="https://drive.google.com/file/d/1C-VH-cFtrAgj8J00i1XgsX8EMGc5CWAx/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">AGGPS</a>
+									<a href="https://drive.google.com/file/d/1a3zUpertkdhEGMoC6gH2e3HT7kV2Qllc/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">LOBBY_BREACHES</a>
+									<a href="https://drive.google.com/drive/folders/1pN8tgVmDMwsCtZwp_gzSDwkldqUH4Epa?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES</a>
+									<a href="https://drive.google.com/drive/folders/1k0dtqvNbD8nLyqKq6HGeifUhq3aAZK78?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES_JSON</a>
+									<a href="https://drive.google.com/file/d/1lz917Zj3aaj5HNmG_ydJ8S5ycTO7PyDO/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">INHOUSE_SOLICITOR_SRA_GUIDANCE</a>
+									<a href="https://drive.google.com/file/d/1_WM1oslXJ_G6TXXT-_fw6MtPxnnfgWMP/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES_I</a>
+									<a href="https://drive.google.com/file/d/1tX5H9h6p2pe_b-hSuENZSGJ52NOkh6uX/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MEDIATION_NDA_REMEDIES_II</a>
+									<a href="https://drive.google.com/file/d/1XqmfEeUDHgBXInws8Ex_Cf8A0la67_Xg/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">NDA_PDF</a>
+									<a href="https://drive.google.com/drive/folders/1CRwAVVQWimAXqYyUWu_yhVc7fG5yWc9n?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OC_OS_RNS_TOOLS</a>
+									<a href="https://drive.google.com/drive/folders/1vPP4bFN_aU3TKjxRvGYsxilv8AGAG3iC?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OC_OS_RNS_TOOLS_JSON</a>
+									<a href="https://drive.google.com/file/d/1v9K65ItllKL2oBygaQPKZGs9NENNHnRJ/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">HOW_TO_USE_OC</a>
+									<a href="https://drive.google.com/file/d/1o7Nc60qkRxrQHjYDir-gta4OVCxwgIN9/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">RNS_SUBMIT_REACH</a>
+									<a href="https://drive.google.com/drive/folders/1iaGh1lTWp7y9tuF35ZD8NSFs3vSyhiN7?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_FOLDER</a>
+									<a href="https://drive.google.com/file/d/167TuXIPhYOUYYB3DO2Jp8EpiGiXcmURo/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_ZIP_A</a>
+									<a href="https://drive.google.com/file/d/1IQ9MmcJR_x3QUZuDU0xefi0Nf_XApbaU/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_ZIP_B</a>
+									<a href="https://drive.google.com/file/d/1_Dxjspme05_bTpCMLLoPqPp0ikAtotC-/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">OECD_ZIP_C</a>
+									<a href="https://drive.google.com/drive/folders/1isqEFs7z9NjAN8ROY740NcDTc2F8TcYY?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1fs05mFAixDw3vsuPcSv6Bgn4u7sZ4G60/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_WEB_ZIP</a>
+									<a href="https://drive.google.com/file/d/1gbg2RkQxivI7bpKZ3zVI1C4dgqeiIaMf/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">SPAIN_LOA_NEXTGEN_TL_ZIP</a>
+									<a href="https://drive.google.com/drive/folders/1xWU-gPc37ma7YWlma_An-_1ZG39BMFi_?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">USP_PPPS_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1mUBYCRxoXyWLcoJQZUCWkQURoFbpxgrO/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ASSET_IDENTIF_AND_PPP_TRACKER</a>
+									<a href="https://drive.google.com/file/d/1FpHKCcQ5YmlQ1HlczjD5vdSKHwhBTATJ/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CCS_USPS</a>
+									<a href="https://drive.google.com/file/d/1-T1jbf-f6oahGvGg-IP9bwNH3yIeK0UW/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CONSTRUCTION_LAW_AND_CONTRACTS</a>
+									<a href="https://drive.google.com/file/d/14pz1Ic-gLaQjS9NJak-hR6h_lZOktfXK/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">EUROSTAT_ONS</a>
+									<a href="https://drive.google.com/file/d/14-BZBV4z5v5TSeV0w30TZOJ-OUDl5p4b/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MODEL_CONTRACTS_FROM_PUS_TO_PRIS</a>
+									<a href="https://drive.google.com/file/d/1bWJw2957TO97PFPp-j_VILRwTowSJbBv/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">PPP_USP</a>
+									<a href="https://drive.google.com/drive/folders/1cbh8q1WnSo8qGOCTu4GxTV2bSXCwK3bS?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">MATOIPO_VALUATION_FOLDER</a>
+									<a href="https://drive.google.com/file/d/1N1UcOeDc5PvDLNan2z4DAzTwRF-F4u5A/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">BIWS_BANKS</a>
+									<a href="https://drive.google.com/file/d/181veH9J59eBcd71qFcPxzEIFG9pZnUeI/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">BIWS_MA_EXCELS</a>
+									<a href="https://drive.google.com/file/d/1tIfqtMIDf5SBtJj9ongEBjD8prUBpPoo/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">NO_PAT_VALUATION</a>
+									<a href="https://drive.google.com/file/d/1AWZAIalMrMH0eaIJMSckBEADmvbqVa6P/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">PDF_VALUATION</a>
+									<a href="https://drive.google.com/file/d/1RVPjXEa6vOcUIuLShvS8_ePBG6_7FYBu/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">3P_INTERVENTIONS</a>
+									<a href="https://drive.google.com/file/d/1-p8TezfZtJv9GjwcCa17J5CuBRuxnjaW/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">ALP_ZIP</a>
+									<a href="https://drive.google.com/file/d/1O_qjHXCLrAqORgoHYbaMlaGhJhTbwUFH/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CLP_WEB_ZIP</a>
+									<a  href="https://drive.google.com/file/d/1zu4rV9xVAtooCx1ermLNbEdjYFyrz3Bk/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">COCOO_INDEX_STEPS_GPT_PROMPTS</a>
+								<a href="https://drive.google.com/file/d/1zu4rV9xVAtooCx1ermLNbEdjYFyrz3Bk/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">CLP_WEB_ZIP</a>
+								<a href="https://drive.google.com/file/d/1KncL42DyBml8H80GLBmNk247jwopVyNT/view?usp=drive_link" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">PROMPTING_ZIP</a>
+								</div>
+
+						                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            No files available. Please check your Google Drive configuration.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var triggerTabList = [].slice.call(document.querySelectorAll('#list-tab a'))
+        triggerTabList.forEach(function (triggerEl) {
+            var tabTrigger = new bootstrap.Tab(triggerEl)
+            triggerEl.addEventListener('click', function (event) {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        })
+    });
+</script>
+{% endblock %}
+	
