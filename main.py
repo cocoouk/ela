@@ -93,12 +93,41 @@ def gdrive_links():
     ]
     return render_template('gdrive_links.html', gdrive_links=links)
 
+@app.route('/emails')
+def emails():
+    return render_template('emails.html')
+
+@app.route('/gsheets')
+def gsheets():
+    return render_template('gsheets.html')
+
+@app.route('/mongodb')
+def mongodb():
+    return render_template('mongodb.html')
+
+@app.route('/gform_responses')
+def gform_responses():
+    return render_template('gform_responses.html')
+
+@app.route('/notion_pages')
+def notion_pages():
+    return render_template('notion_pages.html')
+
+@app.route('/extensions')
+def extensions():
+    return render_template('extensions.html')
+
 @app.route('/chat', methods=['POST'])
 @limiter.limit("30 per minute")  # Updated rate limit for better handling
 def chat():
     user_message = request.form.get('message', '')
     response = f"You said: {user_message}"
     return jsonify({"response": response})
+
+# Error handler for 404
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
