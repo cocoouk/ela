@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,30 +8,42 @@
 </head>
 <body>
     <header>
-        <h1>ELA Replit App</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/gdrive">Google Drive</a>
-            <a href="/gdrive_links">Google Drive Links</a>
-            <a href="/notion">Notion</a>
-            <a href="/gforms">Google Forms</a>
-            <a href="/gsheets">Google Sheets</a>
-            <a href="/mongo">MongoDB</a>
-            <a href="/extensions">Extensions</a>
-            <a href="/emails">Emails</a>
-        </nav>
+        <div class="container">
+            <h1>ELA Replit App</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/gdrive">Google Drive</a></li>
+                    <li><a href="/gdrive_links">Google Drive Links</a></li>
+                    <li><a href="/notion">Notion</a></li>
+                    <li><a href="/gforms">Google Forms</a></li>
+                    <li><a href="/gsheets">Google Sheets</a></li>
+                    <li><a href="/mongo">MongoDB</a></li>
+                    <li><a href="/extensions">Extensions</a></li>
+                    <li><a href="/emails">Emails</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
     </main>
 
-    <div id="chat-interface">
+    <div id="chat-interface" class="container mt-5">
         <h2>Chat with AI</h2>
         <div id="chat-messages"></div>
-        <input type="text" id="user-input" placeholder="Type your message...">
-        <button onclick="sendMessage()">Send</button>
+        <input type="text" id="user-input" placeholder="Type your message..." class="form-control mt-3">
+        <button onclick="sendMessage()" class="btn btn-primary mt-3">Send</button>
     </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ELA Replit App. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
