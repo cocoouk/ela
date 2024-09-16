@@ -1,17 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Notion Pages</h2>
-<ul>
-    {% for page in pages %}
-    <li><a href="{{ page.url }}" target="_blank">{{ page.title }}</a></li>
-    {% endfor %}
-</ul>
-{% endblock %}
-
-{% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">Notion Pages</h1>
+    
     {% if pages %}
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {% for page in pages %}
@@ -61,5 +53,3 @@
     });
 </script>
 {% endblock %}
-
-
