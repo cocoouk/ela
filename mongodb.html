@@ -3,12 +3,10 @@
 {% block content %}
 <h2>MongoDB</h2>
 <p>MongoDB functionality will be implemented here.</p>
-{% endblock %}
 
-
-{% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">MongoDB Collections</h1>
+    
     {% if collections %}
         <div class="accordion" id="collectionsAccordion">
             {% for collection in collections %}
@@ -61,4 +59,3 @@
     });
 </script>
 {% endblock %}
-
