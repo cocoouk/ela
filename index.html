@@ -4,45 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COCOO's ORACLE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h2>COCOO's ORACLE</h2>
     <p>Competition Infringement Detector</p>
     
-    <a href="chat.html">Go to Chat</a>
+    <!-- Updated Links using Flask's url_for() -->
+    <a href="{{ url_for('chat') }}">Go to Chat</a>
     <br><br>
 
     <h3>GDRIVE</h3>
-    <a href="gdrive.html">Access</a>
+    <a href="{{ url_for('gdrive') }}">Access</a>
     <br><br>
 
     <h3>MY GDRIVE LINKS</h3>
-    <a href="gdrive_links.html">Access</a>
+    <a href="{{ url_for('gdrive_links') }}">Access</a>
     <br><br>
 
     <h3>EMAILS</h3>
-    <a href="emails.html">Access</a>
+    <a href="{{ url_for('emails') }}">Access</a>
     <br><br>
 
     <h3>GSHEETS</h3>
-    <a href="gsheets.html">Access</a>
+    <a href="{{ url_for('gsheets') }}">Access</a>
     <br><br>
 
     <h3>MONGO</h3>
-    <a href="mongodb.html">Access</a>
+    <a href="{{ url_for('mongodb') }}">Access</a>
     <br><br>
 
     <h3>GFORM</h3>
-    <a href="gform_responses.html">Access</a>
+    <a href="{{ url_for('gform_responses') }}">Access</a>
     <br><br>
 
     <h3>NOTION</h3>
-    <a href="notion_pages.html">Access</a>
+    <a href="{{ url_for('notion_pages') }}">Access</a>
     <br><br>
 
-    <!-- Added CF7 Link -->
+    <!-- CF7 Link Added -->
     <h3>CF7</h3>
-    <a href="extensions.html">Access</a>
+    <a href="{{ url_for('extensions') }}">Access</a>
+
+    <!-- Include JS files -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
