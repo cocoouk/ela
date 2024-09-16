@@ -1,3 +1,4 @@
+// Function to send a message to the chat
 function sendMessage() {
     var userInput = document.getElementById('user-input');
     var message = userInput.value;
@@ -27,16 +28,18 @@ function sendMessage() {
     });
 }
 
-// Capture GDrive Links Click Event
+// Wait for the document to be fully loaded before running the link handler
 document.addEventListener('DOMContentLoaded', () => {
+    // Select all elements with the class 'gdrive-link'
     const gdriveLinks = document.querySelectorAll('.gdrive-link');
+    
     gdriveLinks.forEach(link => {
+        // Attach an event listener to each Google Drive link
         link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const linkUrl = this.href;
+            event.preventDefault();  // Prevent the default action (opening the link)
+            const linkUrl = this.href;  // Capture the link's URL
             var chatMessages = document.getElementById('chat-messages');
-            chatMessages.innerHTML += '<p><strong>Link:</strong> ' + linkUrl + '</p>';
+            chatMessages.innerHTML += '<p><strong>Link:</strong> <a href="' + linkUrl + '" target="_blank">' + linkUrl + '</a></p>';
         });
     });
 });
-    
