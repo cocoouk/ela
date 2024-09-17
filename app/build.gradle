@@ -1,0 +1,34 @@
+// Module-level build.gradle file (for the 'app' module)
+
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 33 // The SDK version you compile against
+    defaultConfig {
+        applicationId "com.example.myapp" // Your app's unique identifier
+        minSdkVersion 21 // Minimum SDK version supported by your app
+        targetSdkVersion 33 // The SDK version your app targets
+        versionCode 1 // App version code
+        versionName "1.0" // App version name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false // Disable code shrinking, obfuscation, and optimization for release builds
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1' // AndroidX libraries
+    implementation 'com.google.android.material:material:1.9.0' // Material design components
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2' // Unit testing library
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
