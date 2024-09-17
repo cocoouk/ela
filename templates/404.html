@@ -1,24 +1,62 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div class="container text-center mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <h1 class="display-1 text-muted mb-4">404</h1>
-            <h2 class="mb-4">Page Not Found</h2>
-            <div class="mb-4">
-                <img src="{{ url_for('static', filename='404_image.svg') }}" alt="404 Illustration" class="img-fluid" style="max-width: 300px;">
-            </div>
-            <p class="lead mb-4">Oops! The page you're looking for doesn't exist.</p>
-            <p class="mb-4">It might have been moved or deleted, or perhaps you mistyped the URL.</p>
-            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
-                <i class="fas fa-home me-2"></i>Return to Homepage
-            </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>ELA Replit App</h1>
+            <nav>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/gdrive.html">Google Drive</a></li>
+                    <li><a href="/gdrive_links.html">Google Drive Links</a></li>
+                    <li><a href="/notion.html">Notion</a></li>
+                    <li><a href="/gforms.html">Google Forms</a></li>
+                    <li><a href="/gsheets.html">Google Sheets</a></li>
+                    <li><a href="/mongo.html">MongoDB</a></li>
+                    <li><a href="/extensions.html">Extensions</a></li>
+                    <li><a href="/emails.html">Emails</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
-</div>
-{% endblock %}
+    </header>
 
-{% block scripts %}
-<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-{% endblock %}
+    <main>
+        <div class="container text-center mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <h1 class="display-1 text-muted mb-4">404</h1>
+                    <h2 class="mb-4">Page Not Found</h2>
+                    <div class="mb-4">
+                        <!-- Replace with actual path to 404 image -->
+                        <img src="/static/404_image.svg" alt="404 Illustration" class="img-fluid" style="max-width: 300px;">
+                    </div>
+                    <p class="lead mb-4">Oops! The page you're looking for doesn't exist.</p>
+                    <p class="mb-4">It might have been moved or deleted, or perhaps you mistyped the URL.</p>
+                    <a href="/index.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-home me-2"></i>Return to Homepage
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ELA Replit App. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Include Bootstrap JS, FontAwesome, and your custom script.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
