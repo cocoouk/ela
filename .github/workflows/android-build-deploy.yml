@@ -1,0 +1,55 @@
+name: Android build & deploy to GPC
+
+on:
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        env:
+            BUILD_GRADLE_PATH: app/build.gradle
+        steps:
+            - uses: actions/checkout@v3.3.0
+
+            - name: Set up ruby env
+              uses: ruby/setup-ruby@v1
+              with:
+                  ruby-version: { RUBY_VERSION }
+
+            - name: Install ruby dependencies
+              run: bundle install
+
+            - name: Install fastlane plugins
+              run: bundle exec fastlane install_plugins
+
+            - name: Decode Keystore File
+              uses: timheuer/base64-to-file@v1
+              id: keystore
+              with:
+                  fileName: 'keystore.jks'
+                  encodedString: ${{ secrets.ANDROID_KEYSTORE }}
+
+            - name: Decode Service Account JSON File
+              uses: timheuer/base64-to-file@v1
+              id: service_account_json_file
+              with:
+                  fileName: 'serviceAccount.json'
+                  encodedString: ${{ secrets.GPLAY_SERVICE_ACCOUNT_JSON_KEY }}
+
+            - name: Build & deploy the app using fastlane
+              run: bundle exec fastlane android build_deploy
+              env:
+                  KEYSTORE_FILE: ${{ steps.keystore.outputs.filePath }}
+                  KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+                  KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS}}
+                  KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+                  ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
+                  BUILD_GRADLE_PATH: ${{ env.BUILD_GRADLE_PATH }}
+
+            - name: Upload signed build artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  name: signed-builds
+                  path: |
+                      ${{ github.workspace }}/android/app/build/outputs/apk/release
+                      ${{ github.workspace }}/android/app/build/outputs/bundle/release
