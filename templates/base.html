@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELA Replit App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Replaced Flask's url_for with a direct link to style.css -->
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <header>
@@ -12,15 +13,16 @@
             <h1>ELA Replit App</h1>
             <nav>
                 <ul>
+                    <!-- Updated navigation links with direct URLs -->
                     <li><a href="/">Home</a></li>
-                    <li><a href="/gdrive">Google Drive</a></li>
-                    <li><a href="/gdrive_links">Google Drive Links</a></li>
-                    <li><a href="/notion">Notion</a></li>
-                    <li><a href="/gforms">Google Forms</a></li>
-                    <li><a href="/gsheets">Google Sheets</a></li>
-                    <li><a href="/mongo">MongoDB</a></li>
-                    <li><a href="/extensions">Extensions</a></li>
-                    <li><a href="/emails">Emails</a></li>
+                    <li><a href="/gdrive.html">Google Drive</a></li>
+                    <li><a href="/gdrive_links.html">Google Drive Links</a></li>
+                    <li><a href="/notion.html">Notion</a></li>
+                    <li><a href="/gforms.html">Google Forms</a></li>
+                    <li><a href="/gsheets.html">Google Sheets</a></li>
+                    <li><a href="/mongo.html">MongoDB</a></li>
+                    <li><a href="/extensions.html">Extensions</a></li>
+                    <li><a href="/emails.html">Emails</a></li>
                 </ul>
             </nav>
         </div>
@@ -28,7 +30,8 @@
 
     <main>
         <div class="container">
-            {% block content %}{% endblock %}
+            <!-- Placeholder for dynamic content -->
+            <p>This is where the content will be dynamically injected.</p>
         </div>
     </main>
 
@@ -45,6 +48,7 @@
         </div>
     </footer>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- Replaced Flask's url_for with a direct link to script.js -->
+    <script src="/static/script.js"></script>
 </body>
 </html>
