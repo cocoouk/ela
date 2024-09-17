@@ -19,7 +19,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0'  # Specify your Ruby version if needed (you can use '2.7' or another version if required)
+        ruby-version: '3.0'  # Modify if needed
 
     - name: Install Jekyll and dependencies
       run: |
@@ -33,13 +33,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages  # Specify the branch to publish to (use gh-pages if this is your deployment branch)
-        publish_dir: ./_site  # Default output directory for Jekyll
-
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+        publish_dir: ./_site  # Default directory where Jekyll outputs the built site
