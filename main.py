@@ -9,6 +9,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24))
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -119,10 +120,20 @@ def chat():
     response = f"You said: {user_message}"
     return jsonify({"response": response})
 
+# Health check endpoint
+@app.route('/health')
+def health_check():
+    return jsonify({"status": "healthy"}), 200
+
 # Error handler for 404
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
+# Error handler for rate limiting
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    return jsonify({"error": "Rate limit exceeded", "message": str(e.description)}), 429
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=os.getenv('FLASK_DEBUG', 'False').lower() == 'true')
