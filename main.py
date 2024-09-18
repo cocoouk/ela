@@ -1,7 +1,7 @@
 import os
 import json
 import logging
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request
 from pymongo import MongoClient
 from notion_client import Client
 from google.oauth2 import service_account
@@ -49,9 +49,7 @@ else:
     logger.error("NOTION_TOKEN not set. Notion API won't work.")
 
 # Google services connection
-drive_service = None
-sheets_service = None
-forms_service = None
+drive_service, sheets_service, forms_service = None, None, None
 GOOGLE_CREDENTIALS = os.getenv('GOOGLE_CREDENTIALS')
 if GOOGLE_CREDENTIALS:
     try:
@@ -68,6 +66,8 @@ if GOOGLE_CREDENTIALS:
         logger.error(f"Error connecting to Google services: {str(e)}")
 else:
     logger.error("GOOGLE_CREDENTIALS not set. Google services won't work.")
+
+# Routes
 
 @app.route('/')
 def index():
@@ -117,10 +117,13 @@ def notion_pages():
 def extensions():
     return render_template('extensions.html')
 
+# Chat route with rate limiting
 @app.route('/chat', methods=['POST'])
-@limiter.limit("30 per minute")  # Updated rate limit for better handling
+@limiter.limit("30 per minute")  # Keep the higher limit from main.py
 def chat():
     user_message = request.form.get('message', '')
+    if not user_message:
+        return jsonify({"response": "Please enter a message."}), 400
     response = f"You said: {user_message}"
     return jsonify({"response": response})
 
