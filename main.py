@@ -2,7 +2,6 @@ import os
 import json
 import logging
 from flask import Flask, jsonify, render_template, request
-from pymongo import MongoClient
 from notion_client import Client
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -22,19 +21,6 @@ limiter = Limiter(
     default_limits=["500 per day", "100 per hour"],
     storage_uri="memory://"
 )
-
-# MongoDB connection
-MONGODB_URI = os.getenv('MONGODB_URI')
-db = None
-if MONGODB_URI:
-    try:
-        client = MongoClient(MONGODB_URI)
-        db = client.get_database()
-        logger.info("Connected to MongoDB")
-    except Exception as e:
-        logger.error(f"Error connecting to MongoDB: {str(e)}")
-else:
-    logger.error("MONGODB_URI not set. MongoDB won't work.")
 
 # Notion connection
 notion = None
@@ -107,12 +93,6 @@ def gsheets():
         return render_template('error.html', message="Google Sheets service not available"), 503
     return render_template('gsheets.html')
 
-@app.route('/mongodb')
-def mongodb():
-    if not db:
-        return render_template('error.html', message="MongoDB service not available"), 503
-    return render_template('mongodb.html')
-
 @app.route('/gform_responses')
 def gform_responses():
     if not forms_service:
@@ -146,4 +126,3 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
-
