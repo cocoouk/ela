@@ -1,7 +1,6 @@
 Flask>=2.3.2,<2.4
 Werkzeug>=2.3.6,<2.4
 waitress>=2.1.2,<3.0
-pymongo>=4.3.3,<5.0
 notion-client>=2.0.0,<3.0
 google-auth>=2.17.3,<3.0
 google-auth-oauthlib>=1.0.0,<2.0
