@@ -1,4 +1,4 @@
-run = "python main.py"
+run = "python main.py > output.log 2>&1"
 entrypoint = "main.py"
 
 # Packaging
@@ -7,10 +7,8 @@ language = "python3"
 ignoredPackages = ["unit_tests"]
 
   [packager.features]
-  enabledForHosting = false
-  # Enable searching packages from the sidebar.
+  enabledForHosting = true
   packageSearch = true
-  # Enable guessing what packages are needed from the code.
   guessImports = true
 
 # Interactive shell
@@ -35,7 +33,7 @@ REPLIT_POETRY_PYPI_REPOSITORY = "https://package-proxy.replit.com/pypi/"
 MPLBACKEND = "TkAgg"
 POETRY_CACHE_DIR = "${REPL_HOME}/.cache/pypoetry"
 FLASK_APP = "main.py"
-FLASK_ENV = "development"
+FLASK_ENV = "production"
 
 # Execution
 [nix]
