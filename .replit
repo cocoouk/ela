@@ -1,0 +1,71 @@
+run = "python main.py"
+entrypoint = "main.py"
+
+# Packaging
+[packager]
+language = "python3"
+ignoredPackages = ["unit_tests"]
+
+  [packager.features]
+  enabledForHosting = false
+  # Enable searching packages from the sidebar.
+  packageSearch = true
+  # Enable guessing what packages are needed from the code.
+  guessImports = true
+
+# Interactive shell
+[interpreter]
+  [interpreter.command]
+  args = [
+    "stderred",
+    "--",
+    "prybar-python310",
+    "-q",
+    "--ps1",
+    "\u0001\u001b[33m\u0002\u0001\u001b[00m\u0002 ",
+    "-i",
+  ]
+  env = { LD_LIBRARY_PATH = "$PYTHON_LD_LIBRARY_PATH" }
+
+[env]
+VIRTUAL_ENV = "${REPL_HOME}/venv"
+PATH = "${VIRTUAL_ENV}/bin"
+PYTHONPATH = "$PYTHONHOME/lib/python3.10:${VIRTUAL_ENV}/lib/python3.10/site-packages"
+REPLIT_POETRY_PYPI_REPOSITORY = "https://package-proxy.replit.com/pypi/"
+MPLBACKEND = "TkAgg"
+POETRY_CACHE_DIR = "${REPL_HOME}/.cache/pypoetry"
+FLASK_APP = "main.py"
+FLASK_ENV = "development"
+
+# Execution
+[nix]
+channel = "stable-22_11"
+
+[deployment]
+run = ["sh", "-c", "python main.py"]
+deploymentTarget = "cloudrun"
+
+# Formatting
+[languages]
+
+[languages.python]
+pattern = "**/*.py"
+
+[languages.python.languageServer]
+start = "pylsp"
+
+# Ruff linter
+[tool.ruff]
+line-length = 88
+extend-select = [
+  "E",   # pycodestyle
+  "F",   # pyflakes
+  "UP",  # pyupgrade
+]
+
+# UnitTests
+[unitTest]
+language = "python3"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config", "venv"]
