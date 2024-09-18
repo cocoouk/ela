@@ -4,50 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COCOO's ORACLE</title>
-    <!-- Replaced Flask's url_for with a direct path to style.css -->
-    <link rel="stylesheet" href="/static/style.css">
+    <!-- Use Flask's url_for to link to static files like style.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h2>COCOO's ORACLE</h2>
     <p>Competition Infringement Detector</p>
     
-    <!-- Replaced Flask's url_for with direct links to the appropriate pages -->
-    <a href="/chat.html">Go to Chat</a>
+    <!-- Use Flask's url_for to link to routes -->
+    <a href="{{ url_for('chat') }}">Go to Chat</a>
     <br><br>
 
     <h3>GDRIVE</h3>
-    <a href="/gdrive.html">Access</a>
+    <a href="{{ url_for('gdrive') }}">Access</a>
     <br><br>
 
     <h3>MY GDRIVE LINKS</h3>
-    <a href="/gdrive_links.html">Access</a>
+    <a href="{{ url_for('gdrive_links') }}">Access</a>
     <br><br>
 
     <h3>EMAILS</h3>
-    <a href="/emails.html">Access</a>
+    <a href="{{ url_for('emails') }}">Access</a>
     <br><br>
 
     <h3>GSHEETS</h3>
-    <a href="/gsheets.html">Access</a>
-    <br><br>
-
-    <h3>MONGO</h3>
-    <a href="/mongodb.html">Access</a>
-    <br><br>
-
-    <h3>GFORM</h3>
-    <a href="/gform_responses.html">Access</a>
-    <br><br>
-
-    <h3>NOTION</h3>
-    <a href="/notion_pages.html">Access</a>
-    <br><br>
-
-    <!-- CF7 Link Added -->
-    <h3>CF7</h3>
-    <a href="/extensions.html">Access</a>
-
-    <!-- Replaced Flask's url_for with a direct path to script.js -->
-    <script src="/static/script.js"></script>
-</body>
-</html>
+    <a href="{{ url_for('gsheets') }}">Access</a>
+    <br
