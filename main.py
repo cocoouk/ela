@@ -9,7 +9,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
-app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24))
+app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24))  # Use secure secret key
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -23,7 +23,7 @@ limiter = Limiter(
     storage_uri="memory://"
 )
 
-# Notion connection
+# Notion API connection
 notion = None
 NOTION_TOKEN = os.getenv('NOTION_TOKEN')
 if NOTION_TOKEN:
@@ -33,11 +33,12 @@ if NOTION_TOKEN:
     except Exception as e:
         logger.error(f"Error connecting to Notion API: {str(e)}")
 else:
-    logger.error("NOTION_TOKEN not set. Notion API won't work.")
+    logger.error("NOTION_TOKEN not set. Notion API will not be available.")
 
 # Google services connection
 drive_service, sheets_service, forms_service = None, None, None
 GOOGLE_CREDENTIALS = os.getenv('GOOGLE_CREDENTIALS')
+
 if GOOGLE_CREDENTIALS:
     try:
         creds_dict = json.loads(GOOGLE_CREDENTIALS)
@@ -53,13 +54,14 @@ if GOOGLE_CREDENTIALS:
         sheets_service = build('sheets', 'v4', credentials=creds)
         forms_service = build('forms', 'v1', credentials=creds)
         logger.info("Connected to Google services")
+    except json.JSONDecodeError:
+        logger.error("Invalid format in GOOGLE_CREDENTIALS environment variable.")
     except Exception as e:
         logger.error(f"Error connecting to Google services: {str(e)}")
 else:
-    logger.error("GOOGLE_CREDENTIALS not set. Google services won't work.")
+    logger.error("GOOGLE_CREDENTIALS not set. Google services will not be available.")
 
 # Routes
-
 @app.route('/')
 def index():
     return render_template('index.html')
