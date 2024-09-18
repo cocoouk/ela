@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["500 per day", "100 per hour"],  # Increased limit for better testing
+    default_limits=["500 per day", "100 per hour"],
     storage_uri="memory://"
 )
 
@@ -56,7 +56,11 @@ if GOOGLE_CREDENTIALS:
         creds_dict = json.loads(GOOGLE_CREDENTIALS)
         creds = service_account.Credentials.from_service_account_info(
             creds_dict,
-            scopes=['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/forms']
+            scopes=[
+                'https://www.googleapis.com/auth/drive',
+                'https://www.googleapis.com/auth/spreadsheets',
+                'https://www.googleapis.com/auth/forms'
+            ]
         )
         drive_service = build('drive', 'v3', credentials=creds)
         sheets_service = build('sheets', 'v4', credentials=creds)
@@ -99,18 +103,26 @@ def emails():
 
 @app.route('/gsheets')
 def gsheets():
+    if not sheets_service:
+        return render_template('error.html', message="Google Sheets service not available"), 503
     return render_template('gsheets.html')
 
 @app.route('/mongodb')
 def mongodb():
+    if not db:
+        return render_template('error.html', message="MongoDB service not available"), 503
     return render_template('mongodb.html')
 
 @app.route('/gform_responses')
 def gform_responses():
+    if not forms_service:
+        return render_template('error.html', message="Google Forms service not available"), 503
     return render_template('gform_responses.html')
 
 @app.route('/notion_pages')
 def notion_pages():
+    if not notion:
+        return render_template('error.html', message="Notion API not available"), 503
     return render_template('notion_pages.html')
 
 @app.route('/extensions')
@@ -119,7 +131,7 @@ def extensions():
 
 # Chat route with rate limiting
 @app.route('/chat', methods=['POST'])
-@limiter.limit("30 per minute")  # Keep the higher limit from main.py
+@limiter.limit("30 per minute")
 def chat():
     user_message = request.form.get('message', '')
     if not user_message:
@@ -134,3 +146,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+
