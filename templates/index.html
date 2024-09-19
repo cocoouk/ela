@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COCOO's ORACLE</title>
-    <!-- Use Flask's url_for to link to static files like style.css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h2>COCOO's ORACLE</h2>
     <p>Competition Infringement Detector</p>
     
-    <!-- Use Flask's url_for to link to routes -->
     <a href="{{ url_for('chat') }}">Go to Chat</a>
     <br><br>
 
@@ -29,4 +27,5 @@
 
     <h3>GSHEETS</h3>
     <a href="{{ url_for('gsheets') }}">Access</a>
-    <br
+</body>
+</html>
